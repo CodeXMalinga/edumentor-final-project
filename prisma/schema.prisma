@@ -1,0 +1,168 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  fname          String?
+  lname          String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favoriteIds    String[]  @db.ObjectId
+  Session        Session[]
+}
+
+model Mentor {
+  id                    String                @id @default(auto()) @map("_id") @db.ObjectId
+  fname                 String?
+  lname                 String?
+  email                 String?               @unique
+  emailVerified         DateTime?
+  image                 String?
+  hashedPassword        String?
+  contactno             String?
+  highest_qualification String?
+  verfication_status    String?
+  bio                   String?
+  session_rate          Float?
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  Mentor_Basic_Details  Mentor_Basic_Details?
+  Mentor_Bank_Account   Mentor_Bank_Account?
+  Subject               Subject[]
+  Session               Session?
+}
+
+model Mentor_Basic_Details {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  date_of_birth  String?
+  gender         String?
+  address_line_1 String?
+  address_line_2 String?
+  city           String?
+  country        String?
+  school_uni     String?
+  mentor         Mentor  @relation(fields: [mentor_id], references: [id])
+  mentor_id      String  @unique @db.ObjectId
+}
+
+model Mentor_Bank_Account {
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  account_no          Int    @unique
+  bank_name           String
+  branch_name         String
+  account_holder_name String
+  mentor              Mentor @relation(fields: [mentor_id], references: [id])
+  mentor_id           String @unique @db.ObjectId
+}
+
+model Subject {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  subject_name        String
+  subject_description String
+  mentor              Mentor   @relation(fields: [mentor_id], references: [id])
+  mentor_id           String   @unique @db.ObjectId
+  Session             Session?
+}
+
+model Session {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  session_date   DateTime
+  session_time   DateTime
+  session_review String?
+  session_rating Float?
+  session_status String
+  student        Student  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student_id     String   @unique @db.ObjectId
+  subject        Subject  @relation(fields: [subject_id], references: [id], onDelete: Cascade)
+  subject_id     String   @unique @db.ObjectId
+  mentor         Mentor   @relation(fields: [mentor_id], references: [id], onDelete: Cascade)
+  mentor_id      String   @unique @db.ObjectId
+  Payment        Payment?
+}
+
+model Payment {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  amount     Float
+  session    Session @relation(fields: [session_id], references: [id])
+  session_id String  @unique @db.ObjectId
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  fname          String?
+  lname          String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favoriteIds    String[]  @db.ObjectId
+
+  accounts     Account[]
+  listings     Listing[]
+  reservations Reservation[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Listing {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  imageSrc      String
+  createdAt     DateTime @default(now())
+  category      String
+  roomCount     Int
+  bathroomCount Int
+  guestCount    Int
+  locationValue String
+  userId        String   @db.ObjectId
+  price         Int
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations Reservation[]
+}
+
+model Reservation {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  listingId  String   @db.ObjectId
+  startDate  DateTime
+  endDate    DateTime
+  totalPrice Int
+  createdAt  DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
