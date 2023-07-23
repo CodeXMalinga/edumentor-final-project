@@ -1,7 +1,7 @@
 "use client";
 
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import { FaRupeeSign } from "react-icons/fa";
+import { GrCurrency } from "react-icons/gr";
 
 interface InputProps {
   id: string;
@@ -27,13 +27,13 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="w-full relative">
       {formatPrice && (
-        <FaRupeeSign
+        <GrCurrency
           size={24}
           className="
                     text-neutral-700
                     absolute
                     top-5
-                    left-2
+                    left-1
                 "
         />
       )}
