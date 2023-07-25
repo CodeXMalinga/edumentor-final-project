@@ -1,7 +1,19 @@
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
+import EmptyState from "./components/EmptyState";
+import getListings from "./actions/getListings";
 
-export default function Home() {
+export default async function Home() {
+  const listings = await getListings();
+  const isEmpty = true;
+
+  if (isEmpty) {
+    return (
+      <ClientOnly>
+        <EmptyState showReset />
+      </ClientOnly>
+    );
+  }
   return (
     <ClientOnly>
       <Container>
@@ -18,7 +30,7 @@ export default function Home() {
             gap-8
           "
         >
-          <div>My future listings</div>
+          <div>My future listings goes hereaaaaaaaa</div>
         </div>
       </Container>
     </ClientOnly>
