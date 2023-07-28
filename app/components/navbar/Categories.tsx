@@ -1,100 +1,110 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
+import { TbMathFunction, TbBooks } from "react-icons/tb";
 import {
-  GiBarn,
-  GiBoatFishing,
-  GiCactus,
-  GiCastle,
-  GiCaveEntrance,
-  GiForestCamp,
-  GiIsland,
-  GiWindmill,
+  GiPencilBrush,
+  GiComputing,
+  GiMaterialsScience,
+  GiBookshelf,
 } from "react-icons/gi";
-import { FaSkiing } from "react-icons/fa";
-import { BsSnow } from "react-icons/bs";
+import { FaComputer, FaBusinessTime } from "react-icons/fa6";
+import { BsCodeSlash } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
-import { MdOutlineVilla } from "react-icons/md";
+import {
+  MdScience,
+  MdAccountBalance,
+  MdOutlineScience,
+  MdBiotech,
+} from "react-icons/md";
+import { RiEnglishInput } from "react-icons/ri";
+import { LiaLanguageSolid } from "react-icons/lia";
+import { GrMoney, GrTag } from "react-icons/gr";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
 
 export const categories = [
   {
-    label: "Beach",
-    icon: TbBeach,
-    description: "This property is close to the beach!",
+    label: "Mathematics",
+    icon: TbMathFunction,
+    description: "Mathematics for school kids.",
   },
   {
-    label: "Windmills",
-    icon: GiWindmill,
-    description: "This property is has windmills!",
+    label: "Science",
+    icon: MdScience,
+    description: "Science for school kids.",
   },
   {
-    label: "Modern",
-    icon: MdOutlineVilla,
-    description: "This property is modern!",
+    label: "English",
+    icon: RiEnglishInput,
+    description: "English for school kids.",
   },
   {
-    label: "Countryside",
-    icon: TbMountain,
-    description: "This property is in the countryside!",
+    label: "Languages",
+    icon: LiaLanguageSolid,
+    description:
+      "All languages including Sinhala and Tamil as a subject for school kids.",
   },
   {
-    label: "Pools",
-    icon: TbPool,
-    description: "This is property has a beautiful pool!",
+    label: "Computer Programming",
+    icon: BsCodeSlash,
+    description: "Basic couputer programming.",
   },
   {
-    label: "Islands",
-    icon: GiIsland,
-    description: "This property is on an island!",
+    label: "Computer Science",
+    icon: FaComputer,
+    description: "All about computer sciemce.",
   },
   {
-    label: "Lake",
-    icon: GiBoatFishing,
-    description: "This property is near a lake!",
+    label: "Business Studies",
+    icon: FaBusinessTime,
+    description: "Business studies for A/L students.",
   },
   {
-    label: "Skiing",
-    icon: FaSkiing,
-    description: "This property has skiing activies!",
+    label: "Accounting",
+    icon: MdAccountBalance,
+    description: "Accounting for A/L students.",
   },
   {
-    label: "Castles",
-    icon: GiCastle,
-    description: "This property is an ancient castle!",
+    label: "Art",
+    icon: GiPencilBrush,
+    description: "Art for A/L students.",
   },
   {
-    label: "Caves",
-    icon: GiCaveEntrance,
-    description: "This property is in a spooky cave!",
+    label: "ICT",
+    icon: GiComputing,
+    description: "ICT for school kids.",
   },
   {
-    label: "Camping",
-    icon: GiForestCamp,
-    description: "This property offers camping activities!",
+    label: "Physics",
+    icon: GiMaterialsScience,
+    description: "Physics for A/L students.",
   },
   {
-    label: "Arctic",
-    icon: BsSnow,
-    description: "This property is in arctic environment!",
+    label: "Chemistry",
+    icon: MdOutlineScience,
+    description: "Chemistry for A/L students.",
   },
   {
-    label: "Desert",
-    icon: GiCactus,
-    description: "This property is in the desert!",
+    label: "Biology",
+    icon: MdBiotech,
+    description: "Biology for A/L students.",
   },
   {
-    label: "Barns",
-    icon: GiBarn,
-    description: "This property is in a barn!",
+    label: "A/L & O/L Subjects",
+    icon: GiBookshelf,
+    description: "A/L and O/L subjects for students.",
   },
   {
-    label: "Lux",
-    icon: IoDiamond,
-    description: "This property is brand new and luxurious!",
+    label: "University Subject ",
+    icon: TbBooks,
+    description: "All subjects that teach in university level.",
+  },
+  {
+    label: "Others",
+    icon: GrTag,
+    description: "All other subjects.",
   },
 ];
 

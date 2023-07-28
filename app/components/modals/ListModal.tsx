@@ -1,6 +1,6 @@
 "use client";
 
-import useRentModal from "@/app/hooks/useRentModal";
+import useListModal from "@/app/hooks/useListModal";
 import Modal from "./Modal";
 import { useMemo, useState } from "react";
 import Heading from "../Heading";
@@ -10,7 +10,6 @@ import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
-import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import axios from "axios";
@@ -20,14 +19,13 @@ import { useRouter } from "next/navigation";
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  IMAGES = 2,
+  DESCRIPTION = 3,
+  PRICE = 4,
 }
 
 const RentModal = () => {
-  const rentModal = useRentModal();
+  const rentModal = useListModal();
   const [step, setStep] = useState(STEPS.CATEGORY);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -127,8 +125,8 @@ const RentModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which of these best describe your place?"
-        subtitle="Pick a category"
+        title="Which of these best describe the subject?"
+        subtitle="Pick a subject category"
       />
 
       <div
@@ -159,8 +157,8 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Where is your place located?"
-          subtitle="Help guests find you. "
+          title="Where do you live?"
+          subtitle="Let students know where you from."
         />
         <CountrySelect
           value={location}
@@ -171,47 +169,12 @@ const RentModal = () => {
     );
   }
 
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Share some basics about your place"
-          subtitle="What ammenities do you have"
-        />
-
-        <Counter
-          title="Guests"
-          subtitle="How many guests do you allow?"
-          value={guestCount}
-          onChange={(value) => setCustomValues("guestCount", value)}
-        />
-        <hr />
-
-        <Counter
-          title="Rooms"
-          subtitle="How many rooms do you have?"
-          value={roomCount}
-          onChange={(value) => setCustomValues("roomCount", value)}
-        />
-        <hr />
-
-        <Counter
-          title="Bathrooms"
-          subtitle="How many bathrooms do you have?"
-          value={bathroomCount}
-          onChange={(value) => setCustomValues("bathroomCount", value)}
-        />
-        <hr />
-      </div>
-    );
-  }
-
   if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Add a photo of your place"
-          subtitle="Show guests what your place look like"
+          title="Add a photo/Banner picture to attact more students."
+          subtitle="Listing with pictures get more attention to the viewers."
         />
         <ImageUpload
           value={imageSrc}
@@ -225,8 +188,8 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="How would you describe your place?"
-          subtitle="Short and sweet works best"
+          title="Put a strong title for the subject listing."
+          subtitle="Students will search the subject using the title."
         />
 
         <Input
@@ -279,7 +242,7 @@ const RentModal = () => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
-      title="Airbnb your home"
+      title="Subject Listing Form"
       body={bodyContent}
     />
   );
