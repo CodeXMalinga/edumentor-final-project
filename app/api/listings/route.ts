@@ -18,9 +18,6 @@ export async function POST(
     description,
     imageSrc,
     category,
-    roomCount,
-    bathroomCount,
-    guestCount,
     location,
     price,
    } = body;
@@ -37,9 +34,6 @@ export async function POST(
       description,
       imageSrc,
       category,
-      roomCount,
-      bathroomCount,
-      guestCount,
       locationValue: location.value,
       price: parseInt(price, 10),
       userId: currentUser.id
