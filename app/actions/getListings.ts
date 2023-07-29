@@ -38,14 +38,29 @@ export default async function getListings(
       if (subject.at(0) === '"' && subject.at(-1) === '"') {
         newSubject = subject.slice(1, -1);
       }
+
+      query.subject = subject;
     }
+
+
+    if(subject === undefined && category === undefined){
+      await prisma.listing.findMany();
+    }
+
 
     const listings = await prisma.listing.findMany({
       where: {
-        title: {
-          contains: newSubject,
-          mode: 'insensitive'
-        }
+        AND: [
+          {
+            subject: {
+              contains: query.subject,
+              mode: 'insensitive'
+            }
+          },
+          {
+            category: query.category
+          }
+        ]
       },
       orderBy: {
         createdAt: 'desc'
