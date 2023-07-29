@@ -88,7 +88,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     rounded-xl
                     shadow-md
                     w-[40vw]
-                    md:w-3/4
+                    md:w-5/6
                     bg-white
                     overflow-hidden
                     right-0
@@ -112,7 +112,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   label="My Sessions"
                 />
                 <MenuItem
-                  onClick={() => router.push("/listings")}
+                  onClick={() => router.push("/subjects")}
                   label="My Subject Listings"
                 />
                 <MenuItem onClick={listModal.onOpen} label="List a Subject" />

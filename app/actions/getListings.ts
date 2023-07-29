@@ -9,6 +9,7 @@ export interface IListingsParams {
   endDate?: string;
   locationValue?: string;
   category?: string;
+  subject?: string;
 }
 
 export default async function getListings(
@@ -17,13 +18,8 @@ export default async function getListings(
   try {
     const {
       userId,
-      roomCount, 
-      guestCount, 
-      bathroomCount, 
-      locationValue,
-      startDate,
-      endDate,
       category,
+      subject,
     } = params;
 
     let query: any = {};
@@ -36,53 +32,32 @@ export default async function getListings(
       query.category = category;
     }
 
-    if (roomCount) {
-      query.roomCount = {
-        gte: +roomCount
-      }
-    }
+    let newSubject;
 
-    if (guestCount) {
-      query.guestCount = {
-        gte: +guestCount
-      }
-    }
-
-    if (bathroomCount) {
-      query.bathroomCount = {
-        gte: +bathroomCount
-      }
-    }
-
-    if (locationValue) {
-      query.locationValue = locationValue;
-    }
-
-    if (startDate && endDate) {
-      query.NOT = {
-        reservations: {
-          some: {
-            OR: [
-              {
-                endDate: { gte: startDate },
-                startDate: { lte: startDate }
-              },
-              {
-                startDate: { lte: endDate },
-                endDate: { gte: endDate }
-              }
-            ]
-          }
-        }
+    if (subject) {
+      if (subject.at(0) === '"' && subject.at(-1) === '"') {
+        newSubject = subject.slice(1, -1);
       }
     }
 
     const listings = await prisma.listing.findMany({
-      where: query,
+      where: {
+        title: {
+          contains: newSubject,
+          mode: 'insensitive'
+        }
+      },
       orderBy: {
         createdAt: 'desc'
       }
     });
+
+    // const listings = await prisma.listing.findMany({
+    //   where: query,
+    //   orderBy: {
+    //     createdAt: 'desc'
+    //   }
+    // });
 
     const safeListings = listings.map((listing) => ({
       ...listing,

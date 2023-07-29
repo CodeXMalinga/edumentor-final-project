@@ -4,9 +4,9 @@ import ClientOnly from "@/app/components/ClientOnly";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import getListings from "@/app/actions/getListings";
 
-import PropertiesClient from "./PropertiesClient";
+import SubjectsClient from "./SubjectsClient";
 
-const PropertiesPage = async () => {
+const SubjectsPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -19,8 +19,8 @@ const PropertiesPage = async () => {
     return (
       <ClientOnly>
         <EmptyState
-          title="No properties found"
-          subtitle="Looks like you have no properties."
+          title="No subjects found"
+          subtitle="Looks like you have no subjects listed. Create a new subject"
         />
       </ClientOnly>
     );
@@ -28,9 +28,9 @@ const PropertiesPage = async () => {
 
   return (
     <ClientOnly>
-      <PropertiesClient listings={listings} currentUser={currentUser} />
+      <SubjectsClient listings={listings} currentUser={currentUser} />
     </ClientOnly>
   );
 };
 
-export default PropertiesPage;
+export default SubjectsPage;

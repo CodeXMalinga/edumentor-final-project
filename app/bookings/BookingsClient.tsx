@@ -5,32 +5,32 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { SafeListing, SafeUser } from "@/app/types";
+import { SafeReservation, SafeUser } from "@/app/types";
 
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
 
-interface PropertiesClientProps {
-  listings: SafeListing[];
+interface BookingsClientProps {
+  reservations: SafeReservation[];
   currentUser?: SafeUser | null;
 }
 
-const PropertiesClient: React.FC<PropertiesClientProps> = ({
-  listings,
+const TripsClient: React.FC<BookingsClientProps> = ({
+  reservations,
   currentUser,
 }) => {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState("");
 
-  const onDelete = useCallback(
+  const onCancel = useCallback(
     (id: string) => {
       setDeletingId(id);
 
       axios
-        .delete(`/api/listings/${id}`)
+        .delete(`/api/reservations/${id}`)
         .then(() => {
-          toast.success("Listing deleted");
+          toast.success("Your Booking Successfully Cancelled");
           router.refresh();
         })
         .catch((error) => {
@@ -45,7 +45,10 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 
   return (
     <Container>
-      <Heading title="Properties" subtitle="List of your properties" />
+      <Heading
+        title="Your Subject Bookings"
+        subtitle="All your subject booking will appear here. You can cancel your bookings here."
+      />
       <div
         className="
           mt-10
@@ -59,14 +62,15 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
           gap-8
         "
       >
-        {listings.map((listing: any) => (
+        {reservations.map((reservation: any) => (
           <ListingCard
-            key={listing.id}
-            data={listing}
-            actionId={listing.id}
-            onAction={onDelete}
-            disabled={deletingId === listing.id}
-            actionLabel="Delete property"
+            key={reservation.id}
+            data={reservation.listing}
+            reservation={reservation}
+            actionId={reservation.id}
+            onAction={onCancel}
+            disabled={deletingId === reservation.id}
+            actionLabel="Cancel Booking"
             currentUser={currentUser}
           />
         ))}
@@ -75,4 +79,4 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   );
 };
 
-export default PropertiesClient;
+export default TripsClient;
