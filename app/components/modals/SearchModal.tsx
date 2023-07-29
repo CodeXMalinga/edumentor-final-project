@@ -45,9 +45,13 @@ const SearchModal = () => {
         currentQuery = qs.parse(params.toString());
       }
 
+      let newVal: string;
       let val = JSON.stringify(data.search);
 
-      setSubject(val);
+      if (val.at(0) === '"' && val.at(-1) === '"') {
+        newVal = val.slice(1, -1);
+        setSubject(newVal);
+      }
 
       const updatedQuery: any = {
         ...currentQuery,

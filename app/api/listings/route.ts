@@ -14,7 +14,7 @@ export async function POST(
 
   const body = await request.json();
   const { 
-    title,
+    subject,
     description,
     imageSrc,
     category,
@@ -33,7 +33,7 @@ export async function POST(
 
   const listing = await prisma.listing.create({
     data: {
-      title,
+      subject,
       description,
       imageSrc,
       category,

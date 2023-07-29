@@ -112,7 +112,7 @@ const Categories = () => {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();
-  const isMainPage = pathname === "/";
+  const isMainPage = pathname === "/" || pathname === "/dashboard";
 
   if (!isMainPage) {
     return null;
