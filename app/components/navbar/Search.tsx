@@ -10,15 +10,15 @@ const Search = () => {
   const searchModal = useSearchModal();
   const params = useSearchParams();
 
-  const guestCount = params?.get("guestCount");
+  const subject = params?.get("subject");
 
-  const guestLabel = useMemo(() => {
-    if (guestCount) {
-      return `${guestCount} Guests`;
+  const subjectLabel = useMemo(() => {
+    if (subject) {
+      return `${subject}`;
     }
 
     return "Click here to search any subject";
-  }, [guestCount]);
+  }, [subject]);
 
   return (
     <div
@@ -55,7 +55,7 @@ const Search = () => {
             gap-3
           "
         >
-          <div className="hidden sm:block">{guestLabel}</div>
+          <div className="hidden sm:block">{subjectLabel}</div>
           <div
             className="
               p-2 

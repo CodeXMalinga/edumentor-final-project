@@ -35,7 +35,7 @@ const SearchModal = () => {
 
   const [step, setStep] = useState(STEPS.SUBJECT);
 
-  const [subject, setSubject] = useState("initial");
+  const [subject, setSubject] = useState("");
 
   const onSubmit: SubmitHandler<FieldValues> = useCallback(
     async (data) => {
@@ -46,9 +46,6 @@ const SearchModal = () => {
       }
 
       let val = JSON.stringify(data.search);
-
-      console.log(typeof val);
-      console.log(subject);
 
       setSubject(val);
 
@@ -69,7 +66,7 @@ const SearchModal = () => {
       searchModal.onClose();
       router.push(url);
     },
-    [searchModal, router, subject, params, getValues, register]
+    [searchModal, router, subject, params]
   );
 
   const actionLabel = useMemo(() => {
