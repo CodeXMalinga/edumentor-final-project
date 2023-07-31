@@ -2,7 +2,7 @@ import EmptyState from "@/app/components/EmptyState";
 import ClientOnly from "@/app/components/ClientOnly";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import getListings from "@/app/actions/getListings";
+import getListingsByUserId from "@/app/actions/getListingsByUserId";
 
 import SubjectsClient from "./SubjectsClient";
 
@@ -13,7 +13,7 @@ const SubjectsPage = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
 
-  const listings = await getListings({ userId: currentUser.id });
+  const listings = await getListingsByUserId({ userId: currentUser.id });
 
   if (listings.length === 0) {
     return (

@@ -11,9 +11,6 @@ import ListingCategory from "./ListingCategory";
 interface ListingInfoProps {
   user: SafeUser;
   description: string;
-  guestCount: number;
-  roomCount: number;
-  bathroomCount: number;
   category:
     | {
         icon: IconType;
@@ -27,9 +24,6 @@ interface ListingInfoProps {
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user,
   description,
-  guestCount,
-  roomCount,
-  bathroomCount,
   category,
   locationValue,
 }) => {
