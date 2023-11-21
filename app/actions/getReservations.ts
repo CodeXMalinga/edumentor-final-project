@@ -46,6 +46,7 @@ export default async function getReservations(
         ...reservation.listing,
         createdAt: reservation.listing.createdAt.toISOString(),
       },
+      rstatus: reservation.rstatus,
     }));
 
     return safeReservations;

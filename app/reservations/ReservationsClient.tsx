@@ -44,7 +44,10 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
 
   return (
     <Container>
-      <Heading title="Reservations" subtitle="Bookings on your properties" />
+      <Heading
+        title="Sessions"
+        subtitle="Sessions created on your subject bookings. You can reject or accept the bookings here."
+      />
       <div
         className="
           mt-10
