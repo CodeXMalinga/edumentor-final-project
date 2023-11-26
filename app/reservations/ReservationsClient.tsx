@@ -42,6 +42,27 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
     [router]
   );
 
+  const onAccept = useCallback(
+    (id: string) => {
+      axios
+        .put(`/api/reservations/${id}`, {
+          reservationId: id,
+          rstatus: "Accepted",
+        })
+        .then(() => {
+          toast.success("Meeting Accepted");
+        })
+        .catch((e) => {
+          toast.error("Something went wrong.");
+          console.log(e);
+        })
+        .finally(() => {
+          router.push(`/room/${id}`);
+        });
+    },
+    [router]
+  );
+
   return (
     <Container>
       <Heading
@@ -70,6 +91,8 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
             onAction={onCancel}
             disabled={deletingId === reservation.id}
             actionLabel="Cancel Student Booking"
+            secondaryActionLabel="Accept & Start 1on1 meeting"
+            secondaryAction={onAccept}
             currentUser={currentUser}
           />
         ))}

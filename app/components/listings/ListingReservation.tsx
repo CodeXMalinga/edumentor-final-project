@@ -13,7 +13,7 @@ interface ListingReservationProps {
   onSubmit: () => void;
   disabled?: boolean;
   disabledDates: Date[];
-  rstatus: String;
+  rstatus?: String;
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({

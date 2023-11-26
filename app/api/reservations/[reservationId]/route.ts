@@ -5,6 +5,42 @@ import prisma from "@/app/libs/prismadb";
 
 interface IParams {
   reservationId?: string;
+  rstatus?: string;
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: IParams}
+){
+  const currentUser = await getCurrentUser();
+
+  const body = await request.json();
+  const { 
+    rstatus,
+   } = body;
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
+
+  const { reservationId } = params;
+
+  console.log("reservation ID " + reservationId, "Rstatus " + rstatus);
+
+  if (!reservationId || typeof reservationId !== 'string') {
+    throw new Error('Invalid ID');
+  }
+
+  const reservationupdated = await prisma.reservation.update({
+    where: {
+      id: reservationId,
+    },
+    data: {
+      rstatus: rstatus,
+    }
+  });
+
+  return NextResponse.json(reservationupdated);
 }
 
 export async function DELETE(
@@ -32,6 +68,7 @@ export async function DELETE(
       ]
     }
   });
+
 
   return NextResponse.json(reservation);
 }

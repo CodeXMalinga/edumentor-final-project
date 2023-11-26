@@ -17,7 +17,10 @@ const BookingPage = async () => {
     );
   }
 
-  const reservations = await getReservations({ userId: currentUser.id });
+  const reservations = await getReservations({
+    userId: currentUser.id,
+    rstatus: "Pending",
+  });
 
   if (reservations.length === 0) {
     return (
