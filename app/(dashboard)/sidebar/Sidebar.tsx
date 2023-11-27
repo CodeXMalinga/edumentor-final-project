@@ -41,11 +41,11 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72 flex-col overflow-y-hidden bg-[#fefefe] duration-300 ease-linear lg:static lg:translate-x-0
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72 flex-col overflow-y-hidden bg-[#fefefe] shadow-xl duration-300 ease-linear lg:static lg:translate-x-0
     ${sideBarOpen ? "translate-x-0" : "-translate-x-full"}
     `}
     >
-      <div className="flex flex-col overflow-y-auto duration-300 ease-linear">
+      <div className="flex flex-col overflow-y-auto duration-300 ease-linear h-fit">
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           <div>
             <ul className="mb-6 flex flex-col gap-1.5">
