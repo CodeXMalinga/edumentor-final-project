@@ -1,5 +1,5 @@
 "use client";
-
+import Head from "next/head";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useCallback, useState } from "react";
@@ -11,12 +11,14 @@ import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
 
+import Script from "next/script";
+
 interface BookingsClientProps {
   reservations: SafeReservation[];
   currentUser?: SafeUser | null;
 }
 
-const TripsClient: React.FC<BookingsClientProps> = ({
+const BookingsClient: React.FC<BookingsClientProps> = ({
   reservations,
   currentUser,
 }) => {
@@ -43,8 +45,19 @@ const TripsClient: React.FC<BookingsClientProps> = ({
     [router]
   );
 
+  const onPayment = useCallback(
+    (id: string) => {
+      router.push("/payment");
+    },
+    [router]
+  );
+
   return (
     <Container>
+      <Script
+        type="text/javascript"
+        src="https://www.payhere.lk/lib/payhere.js"
+      />
       <Heading
         title="Your Subject Bookings"
         subtitle="All your subject booking will appear here. You can cancel your bookings here."
@@ -71,6 +84,8 @@ const TripsClient: React.FC<BookingsClientProps> = ({
             onAction={onCancel}
             disabled={deletingId === reservation.id}
             actionLabel="Cancel Booking"
+            secondaryActionLabel="Proceed to payment"
+            secondaryAction={onPayment}
             currentUser={currentUser}
           />
         ))}
@@ -79,4 +94,4 @@ const TripsClient: React.FC<BookingsClientProps> = ({
   );
 };
 
-export default TripsClient;
+export default BookingsClient;
